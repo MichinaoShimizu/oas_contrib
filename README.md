@@ -1,5 +1,7 @@
 # oas_contrib
 
+[![Gem Version](https://badge.fury.io/rb/oas_contrib.svg)](https://badge.fury.io/rb/oas_contrib)
+
 Libraries and commands for OpenAPI Specification.
 
 ## Installation
