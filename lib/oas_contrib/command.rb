@@ -48,7 +48,7 @@ module OasContrib
       output_solo(hash, out_file, out_type)
     end
 
-    option :port,  :type => :integer, :aliases => '-p', :default => '50010', :desc => 'Swagger UI listen port'
+    option :port,  :type => :string, :aliases => '-p', :default => '50010', :desc => 'Swagger UI listen port'
     desc 'preview <input_file>', 'Preview OAS file using Swagger-UI official Docker image.'
 
     # Preview OAS file using Swagger-UI official Docker image.

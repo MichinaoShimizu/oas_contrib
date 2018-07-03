@@ -68,7 +68,6 @@ The preview command needs docker.
 
 * `-p` Swagger UI listen port (default `50010`)
 
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/MichinaoShimizu/oas_contrib. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
