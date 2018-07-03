@@ -1,4 +1,4 @@
-# OasContrib
+# oas_contrib
 
 Libraries and commands for OpenAPI Specification.
 
@@ -28,9 +28,15 @@ Divide the OAS file into path units and schema units.
 
 #### Options
 
-* `-it` input file type (yaml or json, default yaml)
-* `-ot` output file type (yaml or json, default yaml)
+* `-it` input file type (`yaml` or `json`, default `yaml`)
+* `-ot` output file type (`yaml` or `json`, default `yaml`)
 
+You can below 4 case:
+
+* JSON OAS file -> JSON files
+* YAML OAS file -> YAML files
+* JSON OAS file -> YAML files
+* YAML OAS file -> JSON files
 
 ### Merge command
 
@@ -40,12 +46,21 @@ Merge multiple divided files into an OAS file.
 
 #### Options
 
-* `-it` input file type (yaml or json, default yaml)
-* `-ot` output file type (yaml or json, default yaml)
+* `-it` input file type (`yaml` or `json`, default `yaml`)
+* `-ot` output file type (`yaml` or `json`, default `yaml`)
+
+You can below 4 case:
+
+* JSON files -> JSON OAS file
+* YAML files -> YAML OAS file
+* JSON files -> YAML OAS file
+* YAML files -> JSON OAS file
 
 ### Preview command
 
 Preview OAS file using Swagger-UI official Docker image.
+
+The preview command needs docker.
 
 `$ oas_contrib preview <input_file>`
 
@@ -53,15 +68,6 @@ Preview OAS file using Swagger-UI official Docker image.
 
 * `-p` Swagger UI listen port (default `50010`)
 
-#### Requires
-
-The preview command needs docker.
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
