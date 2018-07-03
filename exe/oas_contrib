@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'oas_contrib/command'
+OasContrib::Command.start
