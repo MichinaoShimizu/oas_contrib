@@ -24,12 +24,12 @@ Or install it yourself as:
 
 Divide the OAS file into path units and schema units.
 
-`$ oas_contrib divide <input_file_path> <output_directory_path>`
+`$ oas_contrib divide <input_file_path> <output_directory_path> (OPTIONS)`
 
-#### Options
+__Options__
 
-* `-it` input file type (`yaml` or `json`, default `yaml`)
-* `-ot` output file type (`yaml` or `json`, default `yaml`)
+* `--in_type`  input file type (`yaml` or `json`, default `yaml`)
+* `--out_type` output file type (`yaml` or `json`, default `yaml`)
 
 You can below 4 case:
 
@@ -42,12 +42,12 @@ You can below 4 case:
 
 Merge multiple divided files into an OAS file.
 
-`$ oas_contrib merge <input_directory_path> <output_file_path>`
+`$ oas_contrib merge <input_directory_path> <output_file_path> (OPTIONS)`
 
-#### Options
+__Options__
 
-* `-it` input file type (`yaml` or `json`, default `yaml`)
-* `-ot` output file type (`yaml` or `json`, default `yaml`)
+* `--in_type`  input file type (`yaml` or `json`, default `yaml`)
+* `--out_type` output file type (`yaml` or `json`, default `yaml`)
 
 You can below 4 case:
 
@@ -62,11 +62,11 @@ Preview OAS file using Swagger-UI official Docker image.
 
 The preview command needs docker.
 
-`$ oas_contrib preview <input_file>`
+`$ oas_contrib preview <input_file> (OPTIONS)`
 
-#### Options
+__Options__
 
-* `-p` Swagger UI listen port (default `50010`)
+* `--port` Swagger UI listen port (default `50010`)
 
 ## Contributing
 
