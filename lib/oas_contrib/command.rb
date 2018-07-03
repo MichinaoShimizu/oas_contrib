@@ -19,13 +19,19 @@ module OasContrib
       raise ArgumentError, "in_file:[#{in_file}] is not exists." unless File.exist?(in_file)
       in_type  = options['in_type']
       out_type = options['out_type']
-      meta_file, path_dir, schema_dir = env_paths(out_dir, out_type)
       hash = input_solo(in_file, in_type)
+      version = definition_version(hash)
+
+      meta_file = get_meta_file_path(out_dir, out_type)
+      path_dir = get_path_dir_path(out_dir)
+      schema_dir = get_schema_dir_path(out_dir, version)
+
       FileUtils.mkdir_p(path_dir)
       FileUtils.mkdir_p(schema_dir)
+
       output_solo(meta_filter(hash), meta_file, out_type)
       output_multi(hash['paths'], path_dir, out_type)
-      output_multi(hash['components']['schemas'], schema_dir, out_type)
+      output_multi(schema_filter(hash, version), schema_dir, out_type)
     end
 
     option :in_type,  :type => :string, :aliases => '-it', :default => 'yaml', :desc => 'input file type (yaml or json)'
@@ -40,11 +46,20 @@ module OasContrib
       raise ArgumentError, "in_dir:[#{in_dir}] is not exists." unless File.exist?(in_dir)
       in_type  = options['in_type']
       out_type = options['out_type']
-      meta_file, path_dir, schema_dir = env_paths(in_dir, in_type)
+
+      meta_file = get_meta_file_path(in_dir, in_type)
       hash = input_solo(meta_file, in_type)
+      version = definition_version(hash)
+
+      path_dir = get_path_dir_path(in_dir)
+      schema_dir = get_schema_dir_path(in_dir, version)
+
       hash['components'] = {}
       hash['paths'] = input_multi(path_dir, in_type)
-      hash['components']['schemas'] = input_multi(schema_dir, in_type)
+      case version
+      when 'v2' then hash['definitions'] = input_multi(schema_dir, in_type)
+      when 'v3' then hash['components']['schemas'] = input_multi(schema_dir, in_type)
+      end
       output_solo(hash, out_file, out_type)
     end
 

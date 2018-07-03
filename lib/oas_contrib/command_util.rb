@@ -9,16 +9,42 @@ module OasContrib
     # @return [String]
     FILE_TYPE_JSON = 'json'.freeze
 
-    # Get directory, file paths
-    # @param [String] root target root directory
-    # @param [String] file_type yaml or json
-    # @return [Array] meta file path, path direcotry path, schema directory path
-    def env_paths(root, file_type)
-      [
-        "#{root}/meta#{file_type_ext(file_type)}",
-        "#{root}/paths",
-        "#{root}/components/schemas"
-      ]
+    def definition_version(hash)
+      if hash['swagger']
+        puts 'OK. input file is swagger 2.0 format.'
+        return 'v2'
+      end
+
+      if hash['openapi']
+        puts 'OK. input file is openapi 3.0 format.'
+        return 'v3'
+      end
+
+      raise 'input file must be swagger 2.0, or openapi 3.0 format.'
+    end
+
+    def schema_filter(hash, version)
+      case version
+      when 'v2' then hash['definitions']
+      when 'v3' then hash['components']['schemas']
+      end
+    end
+
+    def get_meta_file_path(root, file_type)
+      "#{root}/meta#{file_type_ext(file_type)}"
+    end
+
+    def get_path_dir_path(root)
+      "#{root}/paths"
+    end
+
+    def get_schema_dir_path(root, version)
+      schema_path = case version
+                    when 'v2' then '/definitions'
+                    when 'v3' then '/components/schemas'
+                    end
+
+      "#{root}#{schema_path}"
     end
 
     # Get file extension
@@ -36,10 +62,13 @@ module OasContrib
     # @param [String] file_type <description>
     # @return [Hash]
     def input_solo(path, file_type)
-      case file_type
-      when FILE_TYPE_YAML then YAML.load_file(path)
-      when FILE_TYPE_JSON then JSON.parse(File.read(path))
-      end
+      hash = case file_type
+             when FILE_TYPE_YAML then YAML.load_file(path)
+             when FILE_TYPE_JSON then JSON.parse(File.read(path))
+             end
+
+      puts "Load #{file_type} complete: #{path}"
+      hash
     end
 
     # Load path files and get hash
@@ -65,7 +94,11 @@ module OasContrib
                       when FILE_TYPE_YAML then ->(file) { YAML.dump(hash, file) }
                       when FILE_TYPE_JSON then ->(file) { JSON.dump(hash, file) }
                       end
-      File.open(path, 'w') { |f| output_lambda.call(f) }
+
+      File.open(path, 'w') do |f|
+        output_lambda.call(f)
+        puts "Generate #{file_type} complete: #{path}"
+      end
     end
 
     # Output path definition files
@@ -86,7 +119,7 @@ module OasContrib
     # @param [Hash] hash data source hash
     # @return [Hash] filtered hash
     def meta_filter(hash)
-      hash.select { |k, _| k != 'paths' && k != 'components' }
+      hash.select { |k, _| k != 'paths' && k != 'components' && k != 'definitions' }
     end
   end
 end
