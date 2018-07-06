@@ -1,4 +1,4 @@
 module OasContrib
-  # @return [String] semantic version
+  # @return [String] version
   VERSION = '0.1.1'.freeze
 end

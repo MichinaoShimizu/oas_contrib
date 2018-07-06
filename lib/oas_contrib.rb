@@ -1,8 +1,6 @@
 require 'oas_contrib/version'
 
-#
-# <Description>
-#
+# OAS Contribute module
+# @author Michinao Shimizu
 module OasContrib
-  # Your code goes here...
 end
