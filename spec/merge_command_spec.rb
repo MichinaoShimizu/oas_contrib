@@ -1,8 +1,8 @@
 require_relative 'spec_helper'
 
-RSpec.describe "merge command" do
+RSpec.describe 'merge command' do
   subject do
-    %x(#{cmd})
+    `#{cmd}`
     $?.exitstatus
   end
   let(:cmd) { "bundle exec oas_contrib merge #{indir} #{outfile} #{option}" }

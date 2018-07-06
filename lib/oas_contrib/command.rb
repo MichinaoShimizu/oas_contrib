@@ -13,14 +13,7 @@ module OasContrib
     # @param [String] out_dir output directory path
     # @return [Integer]
     def divide(in_file, out_dir)
-      r = CommandResolvers::Divide.new(in_file, out_dir, options['out_type'])
-      r.load
-      r.resolve
-      r.dist
-      exit(0)
-    rescue StandardError => e
-      puts e.message
-      exit(1)
+      CommandResolvers::Divide.new(in_file, out_dir, options['out_type']).run
     end
 
     option :in_type, type: :string, aliases: '-it', default: 'yaml', desc: 'input file type (yaml or json)'
@@ -31,14 +24,7 @@ module OasContrib
     # @param [String] out_file output file path
     # @return [Integer]
     def merge(in_dir, out_file)
-      r = CommandResolvers::Merge.new(in_dir, out_file, options['in_type'])
-      r.load
-      r.resolve
-      r.dist
-      exit(0)
-    rescue StandardError => e
-      puts e.message
-      exit(1)
+      CommandResolvers::Merge.new(in_dir, out_file, options['in_type']).run
     end
 
     option :port, type: :string, aliases: '-p', default: '50010', desc: 'Swagger UI listen port'
@@ -52,14 +38,10 @@ module OasContrib
       path = File.expand_path(in_file)
       basename = File.basename(path)
       puts "SwaggerUI listen: http://localhost:#{port} with: #{in_file}"
-       `docker run --rm --name oas_contrib_preview_swagger_ui \
-                   -p #{port}:8080 -e API_URL=#{basename} \
-                   -v #{path}:/usr/share/nginx/html/#{basename} swaggerapi/swagger-ui`
-      raise 'Preview command needs docker.' unless $?.exitstatus == 0
-      exit(0)
-    rescue StandardError => e
-      puts e.message
-      exit(1)
+      `docker run --rm --name oas_contrib_preview_swagger_ui \
+      -p #{port}:8080 -e API_URL=#{basename} \
+      -v #{path}:/usr/share/nginx/html/#{basename} swaggerapi/swagger-ui`
+      raise 'Preview command needs docker.' unless $?.exitstatus.zero?
     end
   end
 end

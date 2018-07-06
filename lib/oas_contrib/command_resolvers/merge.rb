@@ -16,6 +16,14 @@ module OasContrib
         super(input_dir_path)
       end
 
+      # Run
+      # @return [nil]
+      def run
+        load
+        resolve
+        dist
+      end
+
       # Load divided files
       # @return [Hash] load and merged data
       def load

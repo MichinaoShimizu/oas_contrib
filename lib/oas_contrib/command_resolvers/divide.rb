@@ -16,6 +16,14 @@ module OasContrib
         super(output_dir_path)
       end
 
+      # Run
+      # @return [nil]
+      def run
+        load
+        resolve
+        dist
+      end
+
       # Load the OAS file
       # @return [Hash] loaded data
       def load

@@ -14,6 +14,13 @@ module OasContrib
       @model_dir = path + '/model'
     end
 
+    # Run
+    # @raise [NotImplementedError]
+    # @return [nil]
+    def run
+      raise NotImplementedError, 'This class must be implemented "run" method.'
+    end
+
     # Load input files or directories
     # @raise [NotImplementedError]
     # @return [nil]
