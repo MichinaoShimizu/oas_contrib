@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/oas_contrib.svg)](https://badge.fury.io/rb/oas_contrib)
 
-Libraries/Commands for OpenAPI Specification.
+Libraries and Commands for OpenAPI Specification.
 
 ## Installation
 
@@ -30,11 +30,13 @@ Divide the OAS file into path units and schema units.
 $ oas_contrib divide <input_file> <output_dir> (<options>...)
 ```
 
-<input_file> must be `.json` or `.yml`
+`<input_file>` must be `.json` or `.yml`
 
 #### Options
 
-* `--out_type` output file type (`yaml` or `json`, default `yaml`)
+| option     | description      | value type                | default  |
+|------------|------------------|---------------------------|----------|
+|`--out_type`| output file type | String (`yaml` or `json`) | `yaml`   |
 
 #### Example
 
@@ -124,11 +126,13 @@ Merge multiple divided files into an OAS file.
 $ oas_contrib merge <input_dir> <output_file> (<options>...)
 ```
 
-<output_file> must be `.json` or `.yml`
+`<output_file>` must be `.json` or `.yml`
 
 #### Options
 
-* `--in_type` : input file type :`yaml`or`json`, default `yaml`
+| option     | description      | value type               | default  |
+|------------|------------------|------------------------- |----------|
+|`--in_type` | input file type  | String (`yaml` or `json`)| `yaml`   |
 
 ### Preview command
 
@@ -140,11 +144,13 @@ The preview command needs docker.
 $ oas_contrib preview <input_file> (<options>...)
 ```
 
-<input_file> must be `.json` or `.yml`
+`<input_file>` must be `.json` or `.yml`
 
 #### Options
 
-* `--port` Swagger UI listen port (default `50010`)
+| option     | description             | value type      | default  |
+|------------|-------------------------|-----------------|----------|
+|`--port`    | Swagger UI listen port  | Integer         | `50010`  |
 
 ## Contributing
 
