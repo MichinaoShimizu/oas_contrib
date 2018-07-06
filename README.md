@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/oas_contrib.svg)](https://badge.fury.io/rb/oas_contrib)
 
-Libraries and commands for OpenAPI Specification.
+Libraries/Commands for OpenAPI Specification.
 
 ## Installation
 
@@ -26,7 +26,9 @@ Or install it yourself as:
 
 Divide the OAS file into path units and schema units.
 
-`$ oas_contrib divide <input_file_path> <output_directory_path> (OPTIONS)`
+`$ oas_contrib divide <input_file> <output_dir> (OPTIONS)`
+
+__input file must be `.json` or `.yml`__
 
 #### Options
 
@@ -42,6 +44,8 @@ You can below 4 case:
 #### Example
 
 ##### Open API 3.0
+
+__[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_openapi_v3.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/openapi_v3)__
 
 ```
 $ oas_contrib divide example/sample_petstore_openapi_v3.yml example/dist/openapi_v3
@@ -73,6 +77,8 @@ example/dist/openapi_v3/
 ```
 
 ##### Swagger v2
+
+__[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_swagger_v2.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/swagger_v2)__
 
 ```
 $ oas_contrib divide example/sample_petstore_swagger_v2.yml example/dist/swagger_v2
@@ -119,11 +125,14 @@ example/dist/
 
 Merge multiple divided files into an OAS file.
 
-`$ oas_contrib merge <input_directory_path> <output_file_path> (OPTIONS)`
+`$ oas_contrib merge <input_dir> <output_file> (OPTIONS)`
 
-__Options__
+__output file must be `.json` or `.yml`__
 
-* `--in_type`  input file type (`yaml` or `json`, default `yaml`)
+#### Options
+
+
+* `--in_type` : input file type :`yaml`or`json`, default `yaml`
 
 You can below 4 case:
 
@@ -140,7 +149,7 @@ The preview command needs docker.
 
 `$ oas_contrib preview <input_file> (OPTIONS)`
 
-__Options__
+#### Options
 
 * `--port` Swagger UI listen port (default `50010`)
 
