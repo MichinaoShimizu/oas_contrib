@@ -27,10 +27,10 @@ Or install it yourself as:
 Divide the OAS file into path units and schema units.
 
 ```bash
-$ oas_contrib divide <input_file> <output_dir> (<options>...)
+$ oas_contrib divide <OAS file> <output_dir> (<options>...)
 ```
 
-`<input_file>` must be `.json` or `.yml`
+`<OAS file>` must be `.json` or `.yml`
 
 #### Options
 
@@ -123,10 +123,10 @@ example/dist/
 Merge multiple divided files into an OAS file.
 
 ```bash
-$ oas_contrib merge <input_dir> <output_file> (<options>...)
+$ oas_contrib merge <input_dir> <OAS file> (<options>...)
 ```
 
-`<output_file>` must be `.json` or `.yml`
+`<OAS file>` must be `.json` or `.yml`
 
 #### Options
 
