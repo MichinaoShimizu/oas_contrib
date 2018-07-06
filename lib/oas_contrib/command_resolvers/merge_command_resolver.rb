@@ -56,5 +56,5 @@ module OasContrib
         end
       end
     end
-    end
+  end
 end

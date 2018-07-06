@@ -13,7 +13,7 @@ module OasContrib
     # @param [String] out_dir output directory path
     # @return [Integer]
     def divide(in_file, out_dir)
-      resolver = OasContrib::DivideCommandResolver.new(in_file, out_dir, options['out_type'])
+      resolver = CommandResolvers::DivideCommandResolver.new(in_file, out_dir, options['out_type'])
       resolver.load
       resolver.resolve
       resolver.dist
@@ -28,7 +28,7 @@ module OasContrib
     # @param [String] out_file output file path
     # @return [Integer]
     def merge(in_dir, out_file)
-      resolver = OasContrib::MergeCommandResolver.new(in_dir, out_file, options['in_type'])
+      resolver = CommandResolvers::MergeCommandResolver.new(in_dir, out_file, options['in_type'])
       resolver.load
       resolver.resolve
       resolver.dist
