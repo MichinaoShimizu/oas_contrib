@@ -1,0 +1,5 @@
+---
+Pets:
+  type: array
+  items:
+    "$ref": "#/definitions/Pet"
