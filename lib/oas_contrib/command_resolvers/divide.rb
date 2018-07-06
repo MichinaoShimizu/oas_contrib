@@ -4,7 +4,7 @@ module OasContrib
   # Command Resolvers
   module CommandResolvers
     # Divide command resolver
-    class DivideCommandResolver < CommandResolverBase
+    class Divide < CommandResolverBase
       # Initialize
       # @param [String] input_file_path input file path
       # @param [String] output_dir_path output directory path

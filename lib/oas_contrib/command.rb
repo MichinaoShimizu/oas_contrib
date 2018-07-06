@@ -1,6 +1,6 @@
 require 'thor'
-require 'oas_contrib/command_resolvers/divide_command_resolver'
-require 'oas_contrib/command_resolvers/merge_command_resolver'
+require 'oas_contrib/command_resolvers/divide'
+require 'oas_contrib/command_resolvers/merge'
 
 module OasContrib
   # Commands
@@ -13,11 +13,14 @@ module OasContrib
     # @param [String] out_dir output directory path
     # @return [Integer]
     def divide(in_file, out_dir)
-      resolver = CommandResolvers::DivideCommandResolver.new(in_file, out_dir, options['out_type'])
+      resolver = CommandResolvers::Divide.new(in_file, out_dir, options['out_type'])
       resolver.load
       resolver.resolve
       resolver.dist
       exit(0)
+    rescue StandardError => e
+      puts e.message
+      exit(1)
     end
 
     option :in_type, type: :string, aliases: '-it', default: 'yaml', desc: 'input file type (yaml or json)'
@@ -28,11 +31,14 @@ module OasContrib
     # @param [String] out_file output file path
     # @return [Integer]
     def merge(in_dir, out_file)
-      resolver = CommandResolvers::MergeCommandResolver.new(in_dir, out_file, options['in_type'])
+      resolver = CommandResolvers::Merge.new(in_dir, out_file, options['in_type'])
       resolver.load
       resolver.resolve
       resolver.dist
       exit(0)
+    rescue StandardError => e
+      puts e.message
+      exit(1)
     end
 
     option :port, type: :string, aliases: '-p', default: '50010', desc: 'Swagger UI listen port'
@@ -50,6 +56,9 @@ module OasContrib
                    -p #{port}:8080 -e API_URL=#{basename} \
                    -v #{path}:/usr/share/nginx/html/#{basename} swaggerapi/swagger-ui"
       exit(0)
+    rescue StandardError => e
+      puts e.message
+      exit(1)
     end
   end
 end

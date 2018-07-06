@@ -4,7 +4,7 @@ module OasContrib
   # Command Resolvers
   module CommandResolvers
     # Merge command resolver
-    class MergeCommandResolver < CommandResolverBase
+    class Merge < CommandResolverBase
       # Initialize
       # @param [String] input_dir_path input directory path
       # @param [String] output_file_path output file path
