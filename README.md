@@ -26,26 +26,21 @@ Or install it yourself as:
 
 Divide the OAS file into path units and schema units.
 
-`$ oas_contrib divide <input_file> <output_dir> (OPTIONS)`
+```bash
+$ oas_contrib divide <input_file> <output_dir> (<options>...)
+```
 
-__input file must be `.json` or `.yml`__
+<input_file> must be `.json` or `.yml`
 
 #### Options
 
 * `--out_type` output file type (`yaml` or `json`, default `yaml`)
 
-You can below 4 case:
-
-* JSON OAS file -> JSON files
-* YAML OAS file -> YAML files
-* JSON OAS file -> YAML files
-* YAML OAS file -> JSON files
-
 #### Example
 
 ##### Open API 3.0
 
-__[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_openapi_v3.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/openapi_v3)__
+[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_openapi_v3.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/openapi_v3)
 
 ```
 $ oas_contrib divide example/sample_petstore_openapi_v3.yml example/dist/openapi_v3
@@ -78,7 +73,7 @@ example/dist/openapi_v3/
 
 ##### Swagger v2
 
-__[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_swagger_v2.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/swagger_v2)__
+[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_swagger_v2.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/swagger_v2)
 
 ```
 $ oas_contrib divide example/sample_petstore_swagger_v2.yml example/dist/swagger_v2
@@ -125,21 +120,15 @@ example/dist/
 
 Merge multiple divided files into an OAS file.
 
-`$ oas_contrib merge <input_dir> <output_file> (OPTIONS)`
+```bash
+$ oas_contrib merge <input_dir> <output_file> (<options>...)
+```
 
-__output file must be `.json` or `.yml`__
+<output_file> must be `.json` or `.yml`
 
 #### Options
 
-
 * `--in_type` : input file type :`yaml`or`json`, default `yaml`
-
-You can below 4 case:
-
-* JSON files -> JSON OAS file
-* YAML files -> YAML OAS file
-* JSON files -> YAML OAS file
-* YAML files -> JSON OAS file
 
 ### Preview command
 
@@ -147,7 +136,11 @@ Preview OAS file using Swagger-UI official Docker image.
 
 The preview command needs docker.
 
-`$ oas_contrib preview <input_file> (OPTIONS)`
+```bash
+$ oas_contrib preview <input_file> (<options>...)
+```
+
+<input_file> must be `.json` or `.yml`
 
 #### Options
 
