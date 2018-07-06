@@ -1,10 +1,10 @@
-require 'oas_contrib/command_resolver_base'
+require 'oas_contrib/command_resolver/base'
 
 module OasContrib
   # Command Resolvers
-  module CommandResolvers
+  module CommandResolver
     # Divide command resolver
-    class Divide < CommandResolverBase
+    class Divide < CommandResolver::Base
       # Initialize
       # @param [String] input_file_path input file path
       # @param [String] output_dir_path output directory path

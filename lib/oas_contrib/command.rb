@@ -1,6 +1,6 @@
 require 'thor'
-require 'oas_contrib/command_resolvers/divide'
-require 'oas_contrib/command_resolvers/merge'
+require 'oas_contrib/command_resolver/divide'
+require 'oas_contrib/command_resolver/merge'
 
 module OasContrib
   # Commands
@@ -13,7 +13,7 @@ module OasContrib
     # @param [String] out_dir output directory path
     # @return [Integer]
     def divide(in_file, out_dir)
-      CommandResolvers::Divide.new(in_file, out_dir, options['out_type']).run
+      CommandResolver::Divide.new(in_file, out_dir, options['out_type']).run
     end
 
     option :in_type, type: :string, aliases: '-it', default: 'yaml', desc: 'input file type (yaml or json)'
@@ -24,7 +24,7 @@ module OasContrib
     # @param [String] out_file output file path
     # @return [Integer]
     def merge(in_dir, out_file)
-      CommandResolvers::Merge.new(in_dir, out_file, options['in_type']).run
+      CommandResolver::Merge.new(in_dir, out_file, options['in_type']).run
     end
 
     option :port, type: :string, aliases: '-p', default: '50010', desc: 'Swagger UI listen port'
