@@ -7,19 +7,18 @@ module OasContrib
   module Resolver
     # CommandResolver Base
     class Base
-      # Initialze
-      # @param [String] path input or output directory path
-      def initialize(path)
-        @meta_dir  = path + '/meta'
-        @path_dir  = path + '/path'
-        @model_dir = path + '/model'
-      end
-
       # Run
       # @raise [NotImplementedError]
       # @return [nil]
       def run
         raise NotImplementedError, 'This class must be implemented "run" method.'
+      end
+
+      # Run
+      # @raise [NotImplementedError]
+      # @return [nil]
+      def setup
+        raise NotImplementedError, 'This class must be implemented "setup" method.'
       end
 
       # Load
@@ -102,7 +101,7 @@ module OasContrib
         hash.each do |k, _v|
           key = k.tr('/', '_').gsub(/^_/, '')
           val = hash.select { |hash_key, _| hash_key == k }
-          output(val, "#{path}/#{i.to_s.rjust(3, '0')}_#{key}#{@output_file_ext}")
+          output(val, "#{path}/#{i.to_s.rjust(3, '0')}_#{key}#{@outfile_ext}")
           i += 1
         end
         nil
@@ -114,7 +113,7 @@ module OasContrib
       # @return [Hash]
       def _input(path)
         puts "Load: #{path}"
-        case @input_file_ext
+        case @infile_ext
         when '.yml'  then YAML.load_file(path)
         when '.json' then JSON.parse(File.read(path))
         else raise ArgumentError, 'Undefined file type'
@@ -127,7 +126,7 @@ module OasContrib
       # @return [IO]
       def _output(hash, file)
         puts "Dist: #{file.path}"
-        case @output_file_ext
+        case @outfile_ext
         when '.yml'  then YAML.dump(hash, file)
         when '.json' then JSON.dump(hash, file)
         else raise ArgumentError, 'Undefined file type'
@@ -138,7 +137,7 @@ module OasContrib
       # @param [String] type file type string (yaml or json)
       # @raise [ArgumentError] invalid file type string
       # @return [String] file extension string (.yml or .json)
-      def file_type_to_ext(type)
+      def str2ext(type)
         case type
         when 'yaml' then '.yml'
         when 'json' then '.json'

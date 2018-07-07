@@ -6,29 +6,37 @@ module OasContrib
     # Divide command resolver
     class Divide < Resolver::Base
       # Initialize
-      # @param [String] input_file_path input file path
-      # @param [String] output_dir_path output directory path
-      # @param [String] output_file_type output file type (json or yaml)
-      def initialize(input_file_path, output_dir_path, output_file_type)
-        @input_file_path = input_file_path
-        @input_file_ext  = File.extname(input_file_path)
-        @output_file_ext = file_type_to_ext(output_file_type)
-
-        super(output_dir_path)
+      # @param [String] infile input file path
+      # @param [String] outdir output directory path
+      # @param [String] type output file type (json or yaml)
+      def initialize(infile, outdir, type)
+        @meta_dir     = outdir + '/meta'
+        @path_dir     = outdir + '/path'
+        @model_dir    = outdir + '/model'
+        @infile       = infile
+        @outfile_type = type
       end
 
       # Run
       # @return [nil]
       def run
+        setup
         load
         resolve
         dist
       end
 
+      # <Description>
+      # @return [<Type>] <description>
+      def setup
+        @infile_ext  = File.extname(@infile)
+        @outfile_ext = str2ext(@outfile_type)
+      end
+
       # Load the OAS file
       # @return [Hash] loaded data
       def load
-        input(@input_file_path)
+        input(@infile)
       end
 
       # Output divided files

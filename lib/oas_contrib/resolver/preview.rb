@@ -6,25 +6,30 @@ module OasContrib
     # Preview command resolver
     class Preview < Resolver::Base
       # Initialize
-      # @param [String] input_file_path input file path
-      # @param [String] input_file_type input file type (json or yaml)
-      def initialize(input_file_path, port)
-        @input_file_path = input_file_path
-        @port = port
+      # @param [String] infile input file path
+      # @param [Integer] port listen port
+      def initialize(infile, port)
+        @infile = infile
+        @port   = port
       end
 
       # Run
       # @return [nil]
       def run
-        load
+        setup
+        # load
+        # resolve
         dist
+      end
+
+      def setup
+        @expand_path = File.expand_path(@infile)
+        @basename    = File.basename(@expand_path)
       end
 
       # Load
       # @return [nil]
       def load
-        @expand_path = File.expand_path(@input_file_path)
-        @basename = File.basename(@expand_path)
         nil
       end
 

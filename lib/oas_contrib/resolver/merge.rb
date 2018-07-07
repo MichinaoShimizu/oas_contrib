@@ -6,23 +6,31 @@ module OasContrib
     # Merge command resolver
     class Merge < Resolver::Base
       # Initialize
-      # @param [String] input_dir_path input directory path
-      # @param [String] output_file_path output file path
-      # @param [String] input_file_type input file type (json or yaml)
-      def initialize(input_dir_path, output_file_path, input_file_type)
-        @input_file_ext   = file_type_to_ext(input_file_type)
-        @output_file_path = output_file_path
-        @output_file_ext  = File.extname(output_file_path)
-
-        super(input_dir_path)
+      # @param [String] indir input directory path
+      # @param [String] outfile output file path
+      # @param [String] type input file type (json or yaml)
+      def initialize(indir, outfile, type)
+        @meta_dir    = indir + '/meta'
+        @path_dir    = indir + '/path'
+        @model_dir   = indir + '/model'
+        @outfile     = outfile
+        @infile_type = type
       end
 
       # Run
       # @return [nil]
       def run
+        setup
         load
         resolve
         dist
+      end
+
+      # <Description>
+      # @return [<Type>] <description>
+      def setup
+        @infile_ext  = str2ext(@infile_type)
+        @outfile_ext = File.extname(@outfile)
       end
 
       # Load divided files
@@ -37,7 +45,7 @@ module OasContrib
       # Output the OAS file
       # @return [nil]
       def dist
-        output(@data, @output_file_path)
+        output(@data, @outfile)
       end
 
       private
@@ -45,19 +53,19 @@ module OasContrib
       # Load meta part files
       # @return [Hash] loaded data
       def load_meta
-        @data = input_dir(@meta_dir + '/**/*' + @input_file_ext)
+        @data = input_dir(@meta_dir + '/**/*' + @infile_ext)
       end
 
       # Load path part files
       # @return [Hash] load and merged data
       def load_path
-        @data['paths'] = input_dir(@path_dir + '/**/*' + @input_file_ext)
+        @data['paths'] = input_dir(@path_dir + '/**/*' + @infile_ext)
       end
 
       # Load model part files
       # @return [Hash] load and merged data
       def load_model
-        path = @model_dir + '/**/*' + @input_file_ext
+        path = @model_dir + '/**/*' + @infile_ext
         if v3?
           @data['components'] = {}
           @data['components']['schemas'] = input_dir(path)
