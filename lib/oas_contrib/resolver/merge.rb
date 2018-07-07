@@ -68,6 +68,24 @@ module OasContrib
         @data['definitions'] = input_dir(@model_dir) if v2?
         @data['components'] = { 'schemas' => input_dir(@model_dir) } if v3?
       end
+
+      # Load directory files
+      # @param [String] path input directory
+      # @return [Hash] merged input files data
+      def input_dir(dir)
+        path = dir + '/**/*' + @infile_ext
+        Dir.glob(path).sort.each_with_object({}, &input_lambda)
+      end
+
+      # Proc of input a yaml or json file
+      # @return [Proc]
+      def input_lambda
+        lambda do |file, result|
+          hash = _input(file)
+          key = hash.keys[0]
+          result[key] = hash[key]
+        end
+      end
     end
   end
 end

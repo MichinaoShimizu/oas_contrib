@@ -46,6 +46,42 @@ module OasContrib
         output_dir(@spec.path,  @path_dir)
         output_dir(@spec.model, @model_dir)
       end
+
+      private
+
+      # Output directory and files
+      # @param [Hash] hash data
+      # @param [String] path directory path
+      # @return [nil]
+      def output_dir(hash, path)
+        puts "Dist: #{path}"
+        FileUtils.mkdir_p(path)
+        hash.each.with_index(1) do |(k, _v), i|
+          outfile_path = _output_dir_file_path_modify(path, k, i)
+          outfile_data = _output_dir_file_data_filter(hash, k)
+          output(outfile_data, outfile_path)
+        end
+        nil
+      end
+
+      # <Description>
+      # @param [<Type>] dir <description>
+      # @param [<Type>] hash_key <description>
+      # @param [<Type>] num <description>
+      # @return [<Type>] <description>
+      def _output_dir_file_path_modify(dir, hash_key, num)
+        prefix    = num.to_s.rjust(3, '0')
+        file_name = hash_key.tr('/', '_').gsub(/^_/, '')
+        dir + '/' + prefix + '_' + file_name + @outfile_ext
+      end
+
+      # <Description>
+      # @param [<Type>] hash <description>
+      # @param [<Type>] filter_key <description>
+      # @return [<Type>] <description>
+      def _output_dir_file_data_filter(hash, filter_key)
+        hash.select { |key, _| key == filter_key }
+      end
     end
   end
 end
