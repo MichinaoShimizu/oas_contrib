@@ -1,4 +1,4 @@
-require 'oas_contrib/openapi/spec_base'
+require 'oas_contrib/openapi/base'
 
 module OasContrib
   # OpenAPI module
@@ -6,7 +6,7 @@ module OasContrib
     # Version 2 module
     module V2
       # Spec
-      class Spec < SpecBase
+      class Spec < OasContrib::OpenAPI::Base
         # Initialize
         # @param [Hash] data mapping data
         def initialize(data)

@@ -4,7 +4,7 @@ module OasContrib
   # Command Resolvers
   module Resolver
     # Divide command resolver
-    class Divide < Resolver::Base
+    class Divide < OasContrib::Resolver::Base
       # Initialize
       # @param [String] infile input file path
       # @param [String] outdir output directory path

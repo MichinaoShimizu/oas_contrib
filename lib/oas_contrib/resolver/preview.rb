@@ -4,7 +4,7 @@ module OasContrib
   # Command Resolvers
   module Resolver
     # Preview command resolver
-    class Preview < Resolver::Base
+    class Preview < OasContrib::Resolver::Base
       # Initialize
       # @param [String] infile input file path
       # @param [Integer] port listen port

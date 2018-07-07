@@ -4,7 +4,7 @@ module OasContrib
   # Command Resolvers
   module Resolver
     # Merge command resolver
-    class Merge < Resolver::Base
+    class Merge < OasContrib::Resolver::Base
       # Initialize
       # @param [String] indir input directory path
       # @param [String] outfile output file path
@@ -53,26 +53,20 @@ module OasContrib
       # Load meta part files
       # @return [Hash] loaded data
       def load_meta
-        @data = input_dir(@meta_dir + '/**/*' + @infile_ext)
+        @data = input_dir(@meta_dir)
       end
 
       # Load path part files
       # @return [Hash] load and merged data
       def load_path
-        @data['paths'] = input_dir(@path_dir + '/**/*' + @infile_ext)
+        @data['paths'] = input_dir(@path_dir)
       end
 
       # Load model part files
       # @return [Hash] load and merged data
       def load_model
-        path = @model_dir + '/**/*' + @infile_ext
-        if v3?
-          @data['components'] = {}
-          @data['components']['schemas'] = input_dir(path)
-        end
-        if v2?
-          @data['definitions'] = input_dir(path)
-        end
+        @data['definitions'] = input_dir(@model_dir) if v2?
+        @data['components'] = { 'schemas' => input_dir(@model_dir) } if v3?
       end
     end
   end

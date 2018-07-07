@@ -8,16 +8,7 @@ module OasContrib
   module Resolver
     # CommandResolver Base
     class Base
-      include Interface::Resolver
-      # Determine which type of definition data.
-      # @raise [StandardError]
-      # @return [OasContrib::Swagger::V2::Spec|OasContrib::OpenAPI::V3::Spec] spec
-      def resolve
-        @spec = OasContrib::OpenAPI::V2::Spec.new(@data) if v2?
-        @spec = OasContrib::OpenAPI::V3::Spec.new(@data) if v3?
-        raise 'Undefined OAS file.' unless @spec
-        @spec.mapping
-      end
+      include OasContrib::Interface::Resolver
 
       # <Description>
       # @return [<Type>] <description>
@@ -31,6 +22,16 @@ module OasContrib
         @data['swagger'] =~ /^2/
       end
 
+      # Resolver spec object
+      # @raise [StandardError]
+      # @return [OasContrib::Swagger::V2::Spec|OasContrib::OpenAPI::V3::Spec] spec
+      def resolve
+        @spec = OasContrib::OpenAPI::V2::Spec.new(@data) if v2?
+        @spec = OasContrib::OpenAPI::V3::Spec.new(@data) if v3?
+        raise 'Undefined OAS file.' unless @spec
+        @spec.mapping
+      end
+
       # Load a file
       # @param [String] path input file path
       # @return [Hash]
@@ -41,7 +42,8 @@ module OasContrib
       # Load directory files
       # @param [String] path input directory
       # @return [Hash] merged input files data
-      def input_dir(path)
+      def input_dir(dir)
+        path = dir + '/**/*' + @infile_ext
         Dir.glob(path).sort.each_with_object({}, &input_lambda)
       end
 
