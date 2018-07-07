@@ -1,3 +1,4 @@
+require 'oas_contrib/interface/resolver'
 require 'oas_contrib/openapi/v2/spec'
 require 'oas_contrib/openapi/v3/spec'
 require 'yaml'
@@ -7,34 +8,7 @@ module OasContrib
   module Resolver
     # CommandResolver Base
     class Base
-      # Run
-      # @raise [NotImplementedError]
-      # @return [nil]
-      def run
-        raise NotImplementedError, 'This class must be implemented "run" method.'
-      end
-
-      # Run
-      # @raise [NotImplementedError]
-      # @return [nil]
-      def setup
-        raise NotImplementedError, 'This class must be implemented "setup" method.'
-      end
-
-      # Load
-      # @raise [NotImplementedError]
-      # @return [nil]
-      def load
-        raise NotImplementedError, 'This class must be implemented "load" method.'
-      end
-
-      # Distribute
-      # @raise [NotImplementedError]
-      # @return [nil]
-      def dist
-        raise NotImplementedError, 'This class must be implemented "dist" method.'
-      end
-
+      include Interface::Resolver
       # Determine which type of definition data.
       # @raise [StandardError]
       # @return [OasContrib::Swagger::V2::Spec|OasContrib::OpenAPI::V3::Spec] spec
@@ -64,12 +38,34 @@ module OasContrib
         @data = _input(path)
       end
 
+      # Load directory files
+      # @param [String] path input directory
+      # @return [Hash] merged input files data
+      def input_dir(path)
+        Dir.glob(path).sort.each_with_object({}, &input_lambda)
+      end
+
       # Output a file
       # @param [Hash] hash data
       # @param [String] path output file path
       # @return [File]
       def output(hash, path)
         File.open(path, 'w') { |f| _output(hash, f) }
+      end
+
+      # Output directory and files
+      # @param [Hash] hash data
+      # @param [String] path directory path
+      # @return [nil]
+      def output_dir(hash, path)
+        puts "Dist: #{path}"
+        FileUtils.mkdir_p(path)
+        hash.each.with_index(1) do |(k, _v), i|
+          outfile_path = _output_dir_file_path_modify(path, k, i)
+          outfile_data = _output_dir_file_data_filter(hash, k)
+          output(outfile_data, outfile_path)
+        end
+        nil
       end
 
       # Proc of input a yaml or json file
@@ -82,29 +78,37 @@ module OasContrib
         end
       end
 
-      # Load directory files
-      # @param [String] path input directory
-      # @return [Hash] merged input files data
-      def input_dir(path)
-        Dir.glob(path).sort.each_with_object({}, &input_lambda)
+      # Convert file type string to file extention string.
+      # @param [String] type file type string (yaml or json)
+      # @raise [ArgumentError] invalid file type string
+      # @return [String] file extension string (.yml or .json)
+      def str2ext(type)
+        case type
+        when 'yaml' then '.yml'
+        when 'json' then '.json'
+        else raise ArgumentError, 'Undefined file type'
+        end
       end
 
-      # Output directory and files
-      # @param [Hash] hash data
-      # @param [String] path directory path
-      # @return [nil]
-      def output_dir(hash, path)
-        puts "Dist: #{path}"
-        FileUtils.mkdir_p(path)
+      private
 
-        i = 1
-        hash.each do |k, _v|
-          key = k.tr('/', '_').gsub(/^_/, '')
-          val = hash.select { |hash_key, _| hash_key == k }
-          output(val, "#{path}/#{i.to_s.rjust(3, '0')}_#{key}#{@outfile_ext}")
-          i += 1
-        end
-        nil
+      # <Description>
+      # @param [<Type>] dir <description>
+      # @param [<Type>] hash_key <description>
+      # @param [<Type>] num <description>
+      # @return [<Type>] <description>
+      def _output_dir_file_path_modify(dir, hash_key, num)
+        prefix    = num.to_s.rjust(3, '0')
+        file_name = hash_key.tr('/', '_').gsub(/^_/, '')
+        dir + '/' + prefix + '_' + file_name + @outfile_ext
+      end
+
+      # <Description>
+      # @param [<Type>] hash <description>
+      # @param [<Type>] filter_key <description>
+      # @return [<Type>] <description>
+      def _output_dir_file_data_filter(hash, filter_key)
+        hash.select { |key, _| key == filter_key }
       end
 
       # Load a file depending on file extension
@@ -116,12 +120,13 @@ module OasContrib
         case @infile_ext
         when '.yml'  then YAML.load_file(path)
         when '.json' then JSON.parse(File.read(path))
-        else raise ArgumentError, 'Undefined file type'
+        else raise ArgumentError, 'Undefined input file type'
         end
       end
 
-      # Output a file depending on file extension
-      # @param [String] path file path
+      # <Description>
+      # @param [Hash] hash data
+      # @param [File] file output file object
       # @raise [ArgumentError] invalid file type string
       # @return [IO]
       def _output(hash, file)
@@ -129,19 +134,7 @@ module OasContrib
         case @outfile_ext
         when '.yml'  then YAML.dump(hash, file)
         when '.json' then JSON.dump(hash, file)
-        else raise ArgumentError, 'Undefined file type'
-        end
-      end
-
-      # Convert file type string to file extention string.
-      # @param [String] type file type string (yaml or json)
-      # @raise [ArgumentError] invalid file type string
-      # @return [String] file extension string (.yml or .json)
-      def str2ext(type)
-        case type
-        when 'yaml' then '.yml'
-        when 'json' then '.json'
-        else raise ArgumentError, 'Undefined file type'
+        else raise ArgumentError, 'Undefined output file type'
         end
       end
     end
