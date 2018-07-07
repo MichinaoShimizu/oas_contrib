@@ -11,13 +11,6 @@ module OasContrib
         @outfile_type = options['out_type']
       end
 
-      def run
-        setup
-        load
-        resolve
-        dist
-      end
-
       def setup
         @infile_ext  = File.extname(@infile)
         @outfile_ext = str2ext(@outfile_type)
@@ -27,7 +20,7 @@ module OasContrib
         input(@infile)
       end
 
-      def dist
+      def distribute
         output_dir(@spec.meta,  @meta_dir)
         output_dir(@spec.path,  @path_dir)
         output_dir(@spec.model, @model_dir)

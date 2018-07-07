@@ -42,6 +42,19 @@ module OasContrib
         end
       end
 
+      def input_dir(dir)
+        path = dir + '/**/*' + @infile_ext
+        Dir.glob(path).sort.each_with_object({}, &input_lambda)
+      end
+
+      def input_lambda
+        lambda do |file, result|
+          hash = _input(file)
+          key = hash.keys[0]
+          result[key] = hash[key]
+        end
+      end
+
       private
 
       def _input(path)

@@ -5,20 +5,15 @@ module OasContrib
     class Preview < OasContrib::Resolver::Base
       def initialize(infile, options)
         @infile = infile
-        @port   = options['port']
-      end
-
-      def run
-        setup
-        dist
+        @port = options['port']
       end
 
       def setup
         @expand_path = File.expand_path(@infile)
-        @basename    = File.basename(@expand_path)
+        @basename = File.basename(@expand_path)
       end
 
-      def dist
+      def distribute
         puts "SwaggerUI listen: http://localhost:#{@port} with: #{@expand_path}"
         `docker run --rm --name oas_contrib_preview_swagger_ui \
         -p #{@port}:8080 -e API_URL=#{@basename} \
