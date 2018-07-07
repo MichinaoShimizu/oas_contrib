@@ -1,6 +1,6 @@
 module OasContrib
-  # Swagger module
-  module Swagger
+  # OpenAPI module
+  module OpenAPI
     # Version 2 module
     module V2
       # Spec

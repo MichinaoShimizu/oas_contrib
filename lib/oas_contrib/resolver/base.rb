@@ -1,10 +1,10 @@
-require 'oas_contrib/swagger/v2/spec'
+require 'oas_contrib/openapi/v2/spec'
 require 'oas_contrib/openapi/v3/spec'
 require 'yaml'
 require 'json'
 
 module OasContrib
-  module CommandResolver
+  module Resolver
     # CommandResolver Base
     class Base
       # Initialze
@@ -22,14 +22,14 @@ module OasContrib
         raise NotImplementedError, 'This class must be implemented "run" method.'
       end
 
-      # Load input files or directories
+      # Load
       # @raise [NotImplementedError]
       # @return [nil]
       def load
         raise NotImplementedError, 'This class must be implemented "load" method.'
       end
 
-      # Distribute output file
+      # Distribute
       # @raise [NotImplementedError]
       # @return [nil]
       def dist
@@ -40,21 +40,33 @@ module OasContrib
       # @raise [StandardError]
       # @return [OasContrib::Swagger::V2::Spec|OasContrib::OpenAPI::V3::Spec] spec
       def resolve
-        return @spec = OasContrib::Swagger::V2::Spec.new(@load_data) if @load_data['swagger'] =~ /^2/
-        return @spec = OasContrib::OpenAPI::V3::Spec.new(@load_data) if @load_data['openapi'] =~ /^3/
+        return @spec = OasContrib::OpenAPI::V2::Spec.new(@load_data) if has_v2_meta?
+        return @spec = OasContrib::OpenAPI::V3::Spec.new(@load_data) if has_v3_meta?
         raise 'Undefined OAS file.'
+      end
+
+      # <Description>
+      # @return [<Type>] <description>
+      def has_v3_meta?
+        @load_data['openapi'] =~ /^3/
+      end
+
+      # <Description>
+      # @return [<Type>] <description>
+      def has_v2_meta?
+        @load_data['swagger'] =~ /^2/
       end
 
       # Check the type of OpenAPI v3 definition or not
       # @return [Boolean]
-      def openapi_v3?
+      def v3_spec?
         @spec.is_a?(OasContrib::OpenAPI::V3::Spec)
       end
 
-      # Check the type of Swagger v2 definition or not
+      # Check the type of OpenAPI v2 definition or not
       # @return [Boolean]
-      def swagger_v2?
-        @spec.is_a?(OasContrib::Swagger::V2::Spec)
+      def v2_spec?
+        @spec.is_a?(OasContrib::OpenAPI::V2::Spec)
       end
 
       # Convert file type string to file extention string.

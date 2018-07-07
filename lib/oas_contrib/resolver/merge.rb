@@ -1,10 +1,10 @@
-require 'oas_contrib/command_resolver/base'
+require 'oas_contrib/resolver/base'
 
 module OasContrib
   # Command Resolvers
-  module CommandResolver
+  module Resolver
     # Merge command resolver
-    class Merge < CommandResolver::Base
+    class Merge < Resolver::Base
       # Initialize
       # @param [String] input_dir_path input directory path
       # @param [String] output_file_path output file path
@@ -57,10 +57,11 @@ module OasContrib
       # @return [Hash] load and merged data
       def load_model
         path = @model_dir + '/**/*' + @input_file_ext
-        @load_data['definitions'] = input_dir(path) if swagger_v2?
-        if openapi_v3?
+        if v3_spec?
           @load_data['components'] = {}
           @load_data['components']['schemas'] = input_dir(path)
+        elsif v2_spec?
+          @load_data['definitions'] = input_dir(path)
         end
       end
     end

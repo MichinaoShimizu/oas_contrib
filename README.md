@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/oas_contrib.svg)](https://badge.fury.io/rb/oas_contrib)
 
-Libraries and Commands for OpenAPI Specification.
+Libraries and Commands for Open API (2.0, 3.0) Specification.
 
 ## Installation
 
@@ -42,24 +42,24 @@ $ oas_contrib divide <OAS file> <output_dir> (<options>...)
 
 ##### Open API 3.0
 
-[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_openapi_v3.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/openapi_v3)
+[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/v3.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/v3)
 
 ```
-$ oas_contrib divide example/sample_petstore_openapi_v3.yml example/dist/openapi_v3
-Load: example/sample_petstore_openapi_v3.yml
-Dist: example/dist/openapi_v3/meta
-Dist: example/dist/openapi_v3/meta/001_openapi.yml
-Dist: example/dist/openapi_v3/meta/002_info.yml
-Dist: example/dist/openapi_v3/meta/003_servers.yml
-Dist: example/dist/openapi_v3/path
-Dist: example/dist/openapi_v3/path/001_pets.yml
-Dist: example/dist/openapi_v3/path/002_pets_{petId}.yml
-Dist: example/dist/openapi_v3/model
-Dist: example/dist/openapi_v3/model/001_Pet.yml
-Dist: example/dist/openapi_v3/model/002_Error.yml
+$ oas_contrib divide example/v3.yml example/dist/v3
+Load: example/v3.yml
+Dist: example/dist/v3/meta
+Dist: example/dist/v3/meta/001_openapi.yml
+Dist: example/dist/v3/meta/002_info.yml
+Dist: example/dist/v3/meta/003_servers.yml
+Dist: example/dist/v3/path
+Dist: example/dist/v3/path/001_pets.yml
+Dist: example/dist/v3/path/002_pets_{petId}.yml
+Dist: example/dist/v3/model
+Dist: example/dist/v3/model/001_Pet.yml
+Dist: example/dist/v3/model/002_Error.yml
 
-$ tree example/dist/openapi_v3/
-example/dist/openapi_v3/
+$ tree example/dist/v3/
+example/dist/v3/
 ├── meta
 │   ├── 001_openapi.yml
 │   ├── 002_info.yml
@@ -73,33 +73,33 @@ example/dist/openapi_v3/
     └── 002_pets_{petId}.yml
 ```
 
-##### Swagger v2
+##### Open API 2.0
 
-[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/sample_petstore_swagger_v2.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/swagger_v2)
+[BEFORE](https://github.com/MichinaoShimizu/oas_contrib/blob/master/example/v2.yml) -> [AFTER](https://github.com/MichinaoShimizu/oas_contrib/tree/master/example/dist/v2)
 
 ```
-$ oas_contrib divide example/sample_petstore_swagger_v2.yml example/dist/swagger_v2
-Load: example/sample_petstore_swagger_v2.yml
-Dist: example/dist/swagger_v2/meta
-Dist: example/dist/swagger_v2/meta/001_swagger.yml
-Dist: example/dist/swagger_v2/meta/002_info.yml
-Dist: example/dist/swagger_v2/meta/003_host.yml
-Dist: example/dist/swagger_v2/meta/004_basePath.yml
-Dist: example/dist/swagger_v2/meta/005_schemes.yml
-Dist: example/dist/swagger_v2/meta/006_consumes.yml
-Dist: example/dist/swagger_v2/meta/007_produces.yml
-Dist: example/dist/swagger_v2/meta/008_components.yml
-Dist: example/dist/swagger_v2/path
-Dist: example/dist/swagger_v2/path/001_pets.yml
-Dist: example/dist/swagger_v2/path/002_pets_{petId}.yml
-Dist: example/dist/swagger_v2/model
-Dist: example/dist/swagger_v2/model/001_Pet.yml
-Dist: example/dist/swagger_v2/model/002_Error.yml
-Dist: example/dist/swagger_v2/model/003_Pets.yml
+$ oas_contrib divide example/v2.yml example/dist/v2
+Load: example/v2.yml
+Dist: example/dist/v2/meta
+Dist: example/dist/v2/meta/001_swagger.yml
+Dist: example/dist/v2/meta/002_info.yml
+Dist: example/dist/v2/meta/003_host.yml
+Dist: example/dist/v2/meta/004_basePath.yml
+Dist: example/dist/v2/meta/005_schemes.yml
+Dist: example/dist/v2/meta/006_consumes.yml
+Dist: example/dist/v2/meta/007_produces.yml
+Dist: example/dist/v2/meta/008_components.yml
+Dist: example/dist/v2/path
+Dist: example/dist/v2/path/001_pets.yml
+Dist: example/dist/v2/path/002_pets_{petId}.yml
+Dist: example/dist/v2/model
+Dist: example/dist/v2/model/001_Pet.yml
+Dist: example/dist/v2/model/002_Error.yml
+Dist: example/dist/v2/model/003_Pets.yml
 
 $ tree example/dist/
 example/dist/
-└── swagger_v2
+└── v2
     ├── meta
     │   ├── 001_swagger.yml
     │   ├── 002_info.yml

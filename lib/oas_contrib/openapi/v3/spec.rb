@@ -1,5 +1,5 @@
 module OasContrib
-  # Open API definition module
+  # OpenAPI
   module OpenAPI
     # Version 3 module
     module V3
