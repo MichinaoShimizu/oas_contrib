@@ -13,6 +13,7 @@ module OasContrib
         @input_file_path = input_file_path
         @input_file_ext  = File.extname(input_file_path)
         @output_file_ext = file_type_to_ext(output_file_type)
+
         super(output_dir_path)
       end
 

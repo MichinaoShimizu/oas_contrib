@@ -40,52 +40,29 @@ module OasContrib
       # @raise [StandardError]
       # @return [OasContrib::Swagger::V2::Spec|OasContrib::OpenAPI::V3::Spec] spec
       def resolve
-        return @spec = OasContrib::OpenAPI::V2::Spec.new(@load_data) if has_v2_meta?
-        return @spec = OasContrib::OpenAPI::V3::Spec.new(@load_data) if has_v3_meta?
-        raise 'Undefined OAS file.'
+        @spec = OasContrib::OpenAPI::V2::Spec.new(@data) if v2?
+        @spec = OasContrib::OpenAPI::V3::Spec.new(@data) if v3?
+        raise 'Undefined OAS file.' unless @spec
+        @spec.mapping
       end
 
       # <Description>
       # @return [<Type>] <description>
-      def has_v3_meta?
-        @load_data['openapi'] =~ /^3/
+      def v3?
+        @data['openapi'] =~ /^3/
       end
 
       # <Description>
       # @return [<Type>] <description>
-      def has_v2_meta?
-        @load_data['swagger'] =~ /^2/
-      end
-
-      # Check the type of OpenAPI v3 definition or not
-      # @return [Boolean]
-      def v3_spec?
-        @spec.is_a?(OasContrib::OpenAPI::V3::Spec)
-      end
-
-      # Check the type of OpenAPI v2 definition or not
-      # @return [Boolean]
-      def v2_spec?
-        @spec.is_a?(OasContrib::OpenAPI::V2::Spec)
-      end
-
-      # Convert file type string to file extention string.
-      # @param [String] type file type string (yaml or json)
-      # @raise [ArgumentError] invalid file type string
-      # @return [String] file extension string (.yml or .json)
-      def file_type_to_ext(type)
-        case type
-        when 'yaml' then '.yml'
-        when 'json' then '.json'
-        else raise ArgumentError, 'Undefined file type'
-        end
+      def v2?
+        @data['swagger'] =~ /^2/
       end
 
       # Load a file
       # @param [String] path input file path
       # @return [Hash]
       def input(path)
-        @load_data = input_call(path)
+        @data = _input(path)
       end
 
       # Output a file
@@ -93,50 +70,24 @@ module OasContrib
       # @param [String] path output file path
       # @return [File]
       def output(hash, path)
-        File.open(path, 'w') { |f| output_call(hash, f) }
+        File.open(path, 'w') { |f| _output(hash, f) }
+      end
+
+      # Proc of input a yaml or json file
+      # @return [Proc]
+      def input_lambda
+        lambda do |file, result|
+          hash = _input(file)
+          key = hash.keys[0]
+          result[key] = hash[key]
+        end
       end
 
       # Load directory files
       # @param [String] path input directory
       # @return [Hash] merged input files data
       def input_dir(path)
-        Dir.glob(path).sort.each_with_object({}, &input_call_lambda)
-      end
-
-      # Proc of input a yaml or json file
-      # @return [Proc]
-      def input_call_lambda
-        lambda do |file, result|
-          hash = input_call(file)
-          key = hash.keys[0]
-          result[key] = hash[key]
-        end
-      end
-
-      # Load a file depending on file extension
-      # @param [String] path file path
-      # @raise [ArgumentError] invalid file type string
-      # @return [Hash]
-      def input_call(path)
-        puts "Load: #{path}"
-        case @input_file_ext
-        when '.yml'  then YAML.load_file(path)
-        when '.json' then JSON.parse(File.read(path))
-        else raise ArgumentError, 'Undefined file type'
-        end
-      end
-
-      # Output a file depending on file extension
-      # @param [String] path file path
-      # @raise [ArgumentError] invalid file type string
-      # @return [IO]
-      def output_call(hash, file)
-        puts "Dist: #{file.path}"
-        case @output_file_ext
-        when '.yml'  then YAML.dump(hash, file)
-        when '.json' then JSON.dump(hash, file)
-        else raise ArgumentError, 'Undefined file type'
-        end
+        Dir.glob(path).sort.each_with_object({}, &input_lambda)
       end
 
       # Output directory and files
@@ -155,6 +106,44 @@ module OasContrib
           i += 1
         end
         nil
+      end
+
+      # Load a file depending on file extension
+      # @param [String] path file path
+      # @raise [ArgumentError] invalid file type string
+      # @return [Hash]
+      def _input(path)
+        puts "Load: #{path}"
+        case @input_file_ext
+        when '.yml'  then YAML.load_file(path)
+        when '.json' then JSON.parse(File.read(path))
+        else raise ArgumentError, 'Undefined file type'
+        end
+      end
+
+      # Output a file depending on file extension
+      # @param [String] path file path
+      # @raise [ArgumentError] invalid file type string
+      # @return [IO]
+      def _output(hash, file)
+        puts "Dist: #{file.path}"
+        case @output_file_ext
+        when '.yml'  then YAML.dump(hash, file)
+        when '.json' then JSON.dump(hash, file)
+        else raise ArgumentError, 'Undefined file type'
+        end
+      end
+
+      # Convert file type string to file extention string.
+      # @param [String] type file type string (yaml or json)
+      # @raise [ArgumentError] invalid file type string
+      # @return [String] file extension string (.yml or .json)
+      def file_type_to_ext(type)
+        case type
+        when 'yaml' then '.yml'
+        when 'json' then '.json'
+        else raise ArgumentError, 'Undefined file type'
+        end
       end
     end
   end
