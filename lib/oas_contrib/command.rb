@@ -6,10 +6,10 @@ require 'oas_contrib/resolver/preview'
 module OasContrib
   class Command < Thor
     option :out_type, type: :string, default: 'yaml', desc: 'output file type (yaml or json)'
-    desc 'divide <input_file> <output_dir>', 'Divide the OAS file into path units and schema units.'
+    desc 'divide <spec_file> <output_dir> (<options>)', 'Divide the spec_file into path units and schema units.'
 
-    def divide(infile, outdir)
-      resolver = OasContrib::Resolver::Divide.new(infile, outdir, options)
+    def divide(spec_file, outdir)
+      resolver = OasContrib::Resolver::Divide.new(spec_file, outdir, options)
       resolver.setup
       resolver.load
       resolver.resolve
@@ -17,10 +17,10 @@ module OasContrib
     end
 
     option :in_type, type: :string, default: 'yaml', desc: 'input file type (yaml or json)'
-    desc 'merge <input_dir> <output_file>', 'Merge multiple divided files into an OAS file.'
+    desc 'merge <input_dir> <spec_file> (<options>)', 'Merge multiple divided files into an spec_file.'
 
-    def merge(indir, outfile)
-      resolver = OasContrib::Resolver::Merge.new(indir, outfile, options)
+    def merge(indir, spec_file)
+      resolver = OasContrib::Resolver::Merge.new(indir, spec_file, options)
       resolver.setup
       resolver.load
       resolver.resolve
@@ -28,10 +28,10 @@ module OasContrib
     end
 
     option :port, type: :string, default: '50010', desc: 'Swagger UI listen port'
-    desc 'preview <input_file>', 'Preview OAS file using Swagger-UI official Docker image.'
+    desc 'preview <spec_file> (<options>)', 'Preview the spec_file using Swagger-UI official Docker image.'
 
-    def preview(infile)
-      resolver = OasContrib::Resolver::Preview.new(infile, options)
+    def preview(spec_file)
+      resolver = OasContrib::Resolver::Preview.new(spec_file, options)
       resolver.setup
       resolver.distribute
     end

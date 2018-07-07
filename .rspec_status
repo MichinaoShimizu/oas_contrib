@@ -1,12 +1,12 @@
 example_id                           | status | run_time        |
 ------------------------------------ | ------ | --------------- |
-./spec/divide_command_spec.rb[1:1:1] | passed | 0.32097 seconds |
-./spec/divide_command_spec.rb[1:2:1] | passed | 0.3246 seconds  |
-./spec/divide_command_spec.rb[1:3:1] | passed | 0.31871 seconds |
-./spec/divide_command_spec.rb[1:4:1] | passed | 0.3186 seconds  |
-./spec/divide_command_spec.rb[1:5:1] | passed | 0.30701 seconds |
-./spec/merge_command_spec.rb[1:1:1]  | passed | 0.31669 seconds |
-./spec/merge_command_spec.rb[1:2:1]  | passed | 0.31057 seconds |
-./spec/merge_command_spec.rb[1:3:1]  | passed | 0.31115 seconds |
-./spec/merge_command_spec.rb[1:4:1]  | passed | 0.30849 seconds |
-./spec/merge_command_spec.rb[1:5:1]  | passed | 0.30563 seconds |
+./spec/divide_command_spec.rb[1:1:1] | passed | 0.37937 seconds |
+./spec/divide_command_spec.rb[1:2:1] | passed | 0.34434 seconds |
+./spec/divide_command_spec.rb[1:3:1] | passed | 0.31836 seconds |
+./spec/divide_command_spec.rb[1:4:1] | passed | 0.33955 seconds |
+./spec/divide_command_spec.rb[1:5:1] | passed | 0.3324 seconds  |
+./spec/merge_command_spec.rb[1:1:1]  | passed | 0.35324 seconds |
+./spec/merge_command_spec.rb[1:2:1]  | passed | 0.33507 seconds |
+./spec/merge_command_spec.rb[1:3:1]  | passed | 0.33592 seconds |
+./spec/merge_command_spec.rb[1:4:1]  | passed | 0.33202 seconds |
+./spec/merge_command_spec.rb[1:5:1]  | passed | 0.36737 seconds |
