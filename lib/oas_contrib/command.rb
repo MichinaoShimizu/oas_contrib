@@ -5,6 +5,8 @@ require 'oas_contrib/resolver/preview'
 
 module OasContrib
   class Command < Thor
+    include Thor::Actions
+
     option :out_type, type: :string, default: 'yaml', desc: 'output file type (yaml or json)'
     desc 'divide <spec_file> <output_dir> (<options>)', 'Divide the spec_file into path units and schema units.'
 
@@ -14,6 +16,7 @@ module OasContrib
       resolver.load
       resolver.resolve
       resolver.distribute
+      say 'complete!', :green
     end
 
     option :in_type, type: :string, default: 'yaml', desc: 'input file type (yaml or json)'
@@ -25,15 +28,17 @@ module OasContrib
       resolver.load
       resolver.resolve
       resolver.distribute
+      say 'complete!', :green
     end
 
-    option :port, type: :string, default: '50010', desc: 'Swagger UI listen port'
+    option :port, type: :numeric, default: 50010, desc: 'Swagger UI listen port'
     desc 'preview <spec_file> (<options>)', 'Preview the spec_file using Swagger-UI official Docker image.'
 
     def preview(spec_file)
       resolver = OasContrib::Resolver::Preview.new(spec_file, options)
       resolver.setup
       resolver.distribute
+      say 'complete!', :green
     end
   end
 end
