@@ -8,6 +8,14 @@ module OasContrib
   module Resolver
     # CommandResolver Base
     class Base
+      # @!attribute [r] data
+      #   @return [<Type>] <description>
+      attr_reader :data
+
+      # @!attribute [r] spec
+      #   @return [<Type>] <description>
+      attr_reader :spec
+
       include OasContrib::Interface::Resolver
 
       # <Description>

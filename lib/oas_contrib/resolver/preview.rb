@@ -5,13 +5,6 @@ module OasContrib
   module Resolver
     # Preview command resolver
     class Preview < OasContrib::Resolver::Base
-      # @!attribute [r] infile
-      #   @return [<Type>] <description>
-      attr_reader :infile
-      # @!attribute [r] port
-      #   @return [<Type>] <description>
-      attr_reader :port
-
       # Initialize
       # @param [String] infile input file path
       # @param [Integer] port listen port

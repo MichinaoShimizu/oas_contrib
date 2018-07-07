@@ -5,28 +5,6 @@ module OasContrib
   module Resolver
     # Merge command resolver
     class Merge < OasContrib::Resolver::Base
-      # @!attribute [r] meta_dir
-      #   @return [<Type>] <description>
-      attr_reader :meta_dir
-      # @!attribute [r] path_dir
-      #   @return [<Type>] <description>
-      attr_reader :path_dir
-      # @!attribute [r] model_dir
-      #   @return [<Type>] <description>
-      attr_reader :model_dir
-      # @!attribute [r] outfile
-      #   @return [<Type>] <description>
-      attr_reader :outfile
-      # @!attribute [r] outfile_ext
-      #   @return [<Type>] <description>
-      attr_reader :outfile_ext
-      # @!attribute [r] infile_ext
-      #   @return [<Type>] <description>
-      attr_reader :infile_ext
-      # @!attribute [r] infile_type
-      #   @return [<Type>] <description>
-      attr_reader :infile_type
-
       # Initialize
       # @param [String] indir input directory path
       # @param [String] outfile output file path

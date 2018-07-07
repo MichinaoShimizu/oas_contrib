@@ -5,28 +5,6 @@ module OasContrib
   module Resolver
     # Divide command resolver
     class Divide < OasContrib::Resolver::Base
-      # @!attribute [r] meta_dir
-      #   @return [<Type>] <description>
-      attr_reader :meta_dir
-      # @!attribute [r] path_dir
-      #   @return [<Type>] <description>
-      attr_reader :path_dir
-      # @!attribute [r] model_dir
-      #   @return [<Type>] <description>
-      attr_reader :model_dir
-      # @!attribute [r] infile
-      #   @return [<Type>] <description>
-      attr_reader :infile
-      # @!attribute [r] infile_ext
-      #   @return [<Type>] <description>
-      attr_reader :infile_ext
-      # @!attribute [r] outfile_type
-      #   @return [<Type>] <description>
-      attr_reader :outfile_type
-      # @!attribute [r] outfile_ext
-      #   @return [<Type>] <description>
-      attr_reader :outfile_ext
-
       # Initialize
       # @param [String] infile input file path
       # @param [String] outdir output directory path
