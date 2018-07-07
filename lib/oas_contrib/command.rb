@@ -13,7 +13,7 @@ module OasContrib
     # @param [String] outdir output directory path
     # @return [Integer]
     def divide(infile, outdir)
-      OasContrib::Resolver::Divide.new(infile, outdir, options['out_type']).run
+      OasContrib::Resolver::Divide.new(infile, outdir, options).run
     end
 
     option :in_type, type: :string, default: 'yaml', desc: 'input file type (yaml or json)'
@@ -23,7 +23,7 @@ module OasContrib
     # @param [String] outfile output file path
     # @return [Integer]
     def merge(indir, outfile)
-      OasContrib::Resolver::Merge.new(indir, outfile, options['in_type']).run
+      OasContrib::Resolver::Merge.new(indir, outfile, options).run
     end
 
     option :port, type: :string,default: '50010', desc: 'Swagger UI listen port'
@@ -32,7 +32,14 @@ module OasContrib
     # @param [String] infile input file path
     # @return [Integer]
     def preview(infile)
-      OasContrib::Resolver::Preview.new(infile, options['port']).run
+      OasContrib::Resolver::Preview.new(infile, options).run
     end
+
+    # Preview OAS file using Swagger-UI official Docker image.
+    # @param [String] infile input file path
+    # @return [Integer]
+    # def preview(infile)
+    #   OasContrib::Resolver::Generate.new(infile).run
+    # end
   end
 end

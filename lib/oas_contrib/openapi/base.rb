@@ -5,9 +5,12 @@ module OasContrib
   module OpenAPI
     # Spec Base
     class Base
+      # @!attribute data
+      #   @return [<Type>] <description>
+      attr_reader :data
+
       include OasContrib::Interface::Spec
 
-      attr_accessor :data, :meta, :path, :model
       # Initialize
       # @param [Hash] data mapping data
       def initialize(data)
