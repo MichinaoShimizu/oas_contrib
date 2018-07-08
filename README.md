@@ -22,48 +22,36 @@ Or install it yourself as:
 
 ## Usage
 
-Divide the OAS file into path units and schema units.
+### Common rule
+
+* The file extension of `<OpenAPI Specification file>` must be `.json` or `.yml`.
+* `<OpenAPI Specification file>` must be has the section of `swagger: 2.0.X` or `openapi: 3.0.X`.
+
+### Divide the OpenAPI Specification file
 
 ```bash
-$ oas_contrib divide <OAS file> <output_dir> (<options>...)
+$ oas_contrib divide <OpenAPI Specification file> <output_dir> (<options>...)
 ```
 
-`<OAS file>` must be `.json` or `.yml`
+| option     | description                  | value type                 | default  |
+|------------|------------------------------|----------------------------|----------|
+|`--out_ext` | the extension of output file | String (`.json` or `.yml`) | `.yml`   |
 
-#### Options
-
-| option     | description      | value type                | default  |
-|------------|------------------|---------------------------|----------|
-|`--out_type`| output file type | String (`yaml` or `json`) | `yaml`   |
-
-
-Merge multiple divided files into an OAS file.
+### Merge from divided files to an OpenAPI Specification file
 
 ```bash
-$ oas_contrib merge <input_dir> <OAS file> (<options>...)
+$ oas_contrib merge <input_dir> <OpenAPI Specification file> (<options>...)
 ```
 
-`<OAS file>` must be `.json` or `.yml`
+| option     | description                  | value type                 | default  |
+|------------|------------------------------|----------------------------|----------|
+|`--in_ext`  | the extension of input  file | String (`.json` or `.yml`) | `.yml`   |
 
-#### Options
-
-| option     | description      | value type               | default  |
-|------------|------------------|------------------------- |----------|
-|`--in_type` | input file type  | String (`yaml` or `json`)| `yaml`   |
-
-### Preview command
-
-Preview OAS file using Swagger-UI official Docker image.
-
-The preview command needs docker.
+### Preview the OpenAPI Specification file using Swagger-UI docker image
 
 ```bash
-$ oas_contrib preview <input_file> (<options>...)
+$ oas_contrib preview <OpenAPI Specification file> (<options>...)
 ```
-
-`<input_file>` must be `.json` or `.yml`
-
-#### Options
 
 | option     | description             | value type      | default  |
 |------------|-------------------------|-----------------|----------|
