@@ -14,11 +14,11 @@ gem 'oas_contrib'
 
 And then execute:
 
-    $ bundle
+    bundle
 
 Or install it yourself as:
 
-    $ gem install oas_contrib
+    gem install oas_contrib
 
 ## Usage
 
@@ -30,7 +30,7 @@ Or install it yourself as:
 ### Divide the OpenAPI Specification file
 
 ```bash
-$ oas_contrib divide <OpenAPI Specification file> <output_dir> (<options>...)
+oas_contrib divide <OpenAPI Specification file> <output_dir> (<options>...)
 ```
 
 | option     | description                  | value type                 | default  |
@@ -40,7 +40,7 @@ $ oas_contrib divide <OpenAPI Specification file> <output_dir> (<options>...)
 ### Merge from divided files to an OpenAPI Specification file
 
 ```bash
-$ oas_contrib merge <input_dir> <OpenAPI Specification file> (<options>...)
+oas_contrib merge <input_dir> <OpenAPI Specification file> (<options>...)
 ```
 
 | option     | description                  | value type                 | default  |
@@ -50,7 +50,7 @@ $ oas_contrib merge <input_dir> <OpenAPI Specification file> (<options>...)
 ### Preview the OpenAPI Specification file using Swagger-UI docker image
 
 ```bash
-$ oas_contrib preview <OpenAPI Specification file> (<options>...)
+oas_contrib preview <OpenAPI Specification file> (<options>...)
 ```
 
 | option     | description             | value type      | default  |
