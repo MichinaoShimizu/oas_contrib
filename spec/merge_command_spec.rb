@@ -39,7 +39,7 @@ RSpec.describe 'merge command' do
   context 'invalid in_type hoge' do
     let(:indir) { 'example/dist/v3' }
     let(:outfile) { '/tmp/rspectestresult/dist.yml' }
-    let(:option) { '--in_type=hoge' }
+    let(:option) { '--in_ext=hoge' }
     it { is_expected.to eq(1) }
   end
 end

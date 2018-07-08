@@ -25,21 +25,21 @@ RSpec.describe 'divide command' do
   context 'swagger_v2 yaml json' do
     let(:infile) { 'example/v2.yml' }
     let(:outdir) { '/tmp/rspectestresult' }
-    let(:option) { '--out_type=json' }
+    let(:option) { '--out_ext=.json' }
     it { is_expected.to eq(0) }
   end
 
   context 'openapi_v3 yaml json' do
     let(:infile) { 'example/v3.yml' }
     let(:outdir) { '/tmp/rspectestresult' }
-    let(:option) { '--out_type=json' }
+    let(:option) { '--out_ext=.json' }
     it { is_expected.to eq(0) }
   end
 
   context 'invalid out_type hoge' do
     let(:infile) { 'example/v3.yml' }
     let(:outdir) { '/tmp/rspectestresult' }
-    let(:option) { '--out_type=hoge' }
+    let(:option) { '--out_ext=hoge' }
     it { is_expected.to eq(1) }
   end
 end

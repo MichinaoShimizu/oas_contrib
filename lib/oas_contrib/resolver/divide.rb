@@ -8,12 +8,12 @@ module OasContrib
         @path_dir     = outdir + '/path'
         @model_dir    = outdir + '/model'
         @infile       = infile
-        @outfile_type = options['out_type']
+        @outfile_ext  = options['out_ext']
       end
 
       def setup
-        @infile_ext  = File.extname(@infile)
-        @outfile_ext = str2ext(@outfile_type)
+        @infile_ext = File.extname(@infile)
+        file_ext_check
       end
 
       def load

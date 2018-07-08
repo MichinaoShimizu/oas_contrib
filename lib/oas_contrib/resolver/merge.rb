@@ -4,16 +4,16 @@ module OasContrib
   module Resolver
     class Merge < OasContrib::Resolver::Base
       def initialize(indir, outfile, options)
-        @meta_dir    = indir + '/meta'
-        @path_dir    = indir + '/path'
-        @model_dir   = indir + '/model'
-        @outfile     = outfile
-        @infile_type = options['in_type']
+        @meta_dir   = indir + '/meta'
+        @path_dir   = indir + '/path'
+        @model_dir  = indir + '/model'
+        @outfile    = outfile
+        @infile_ext = options['in_ext']
       end
 
       def setup
-        @infile_ext  = str2ext(@infile_type)
         @outfile_ext = File.extname(@outfile)
+        file_ext_check
       end
 
       def load

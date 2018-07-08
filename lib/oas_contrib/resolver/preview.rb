@@ -10,7 +10,9 @@ module OasContrib
 
       def setup
         @expand_path = File.expand_path(@infile)
-        @basename = File.basename(@expand_path)
+        @basename    = File.basename(@expand_path)
+        @infile_ext  = File.extname(@infile)
+        file_ext_check
       end
 
       def distribute

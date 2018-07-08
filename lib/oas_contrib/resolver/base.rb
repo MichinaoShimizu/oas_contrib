@@ -11,6 +11,18 @@ module OasContrib
 
       include OasContrib::Interface::Resolver
 
+      DEFINED_FILE_EXT = ['.json', '.yml'].freeze
+
+      def file_ext_check
+        if @infile_ext && !DEFINED_FILE_EXT.include?(@infile_ext)
+          raise "Undefined input file extension. #{@infile_ext}"
+        end
+
+        if @outfile_ext && !DEFINED_FILE_EXT.include?(@outfile_ext)
+          raise "Undefined output file extension. #{@outfile_ext}"
+        end
+      end
+
       def v3?
         @data['openapi'] =~ /^3/
       end
@@ -32,14 +44,6 @@ module OasContrib
 
       def output(hash, path)
         File.open(path, 'w') { |f| _output(hash, f) }
-      end
-
-      def str2ext(type)
-        case type
-        when 'yaml' then '.yml'
-        when 'json' then '.json'
-        else raise ArgumentError, 'Undefined file type'
-        end
       end
 
       def input_dir(dir)
