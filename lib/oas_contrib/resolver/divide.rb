@@ -9,9 +9,9 @@ module OasContrib
       # @param [String] outdir output directory path
       # @param [Array] options command options
       def initialize(infile, outdir, options)
-        @meta_dir     = outdir + '/meta'
-        @path_dir     = outdir + '/path'
-        @model_dir    = outdir + '/model'
+        @meta_dir     = outdir + '/' + DIR_NAME_META
+        @path_dir     = outdir + '/' + DIR_NAME_PATH
+        @model_dir    = outdir + '/' + DIR_NAME_MODEL
         @infile       = infile
         @outfile_ext  = options['out_ext']
       end

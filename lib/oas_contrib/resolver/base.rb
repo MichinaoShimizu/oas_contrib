@@ -21,6 +21,15 @@ module OasContrib
       # @return [Array] approval file extensions
       DEFINED_FILE_EXT = ['.json', '.yml'].freeze
 
+      # @return [String] the directory name of meta part files
+      DIR_NAME_META = 'meta'.freeze
+
+      # @return [String] the directory name of path part files
+      DIR_NAME_PATH = 'path'.freeze
+
+      # @return [String] the directory name of model part files
+      DIR_NAME_MODEL = 'model'.freeze
+
       # Check the file extensions is approved or not.
       # @return [Boolean]
       def file_ext_check
@@ -96,8 +105,8 @@ module OasContrib
       def _input(path)
         puts "Load: #{path}"
         case @infile_ext
-        when '.yml'  then YAML.load_file(path)
-        when '.json' then JSON.parse(File.read(path))
+        when DEFINED_FILE_EXT[0] then JSON.parse(File.read(path))
+        when DEFINED_FILE_EXT[1] then YAML.load_file(path)
         else raise ArgumentError, 'Undefined input file type'
         end
       end
@@ -109,8 +118,8 @@ module OasContrib
       def _output(hash, file)
         puts "Dist: #{file.path}"
         case @outfile_ext
-        when '.yml'  then YAML.dump(hash, file)
-        when '.json' then JSON.dump(hash, file)
+        when DEFINED_FILE_EXT[0] then JSON.dump(hash, file)
+        when DEFINED_FILE_EXT[1] then YAML.dump(hash, file)
         else raise ArgumentError, 'Undefined output file type'
         end
       end
