@@ -6,13 +6,23 @@ require 'json'
 
 module OasContrib
   module Resolver
+    # Basical command resolver class
     class Base
-      attr_reader :data, :spec
+      # @!attribute [r] data
+      #   @return [Hash] parsed input data hash
+      attr_reader :data
+
+      # @!attribute [r] spec
+      #   @return [OpenAPI::V3::Spec|OpenAPI::V2::Spec] mapped spec data object
+      attr_reader :spec
 
       include OasContrib::Interface::Resolver
 
+      # @return [Array] approval file extensions
       DEFINED_FILE_EXT = ['.json', '.yml'].freeze
 
+      # Check the file extensions is approved or not.
+      # @return [Boolean]
       def file_ext_check
         if @infile_ext && !DEFINED_FILE_EXT.include?(@infile_ext)
           raise "Undefined input file extension. #{@infile_ext}"
@@ -21,16 +31,23 @@ module OasContrib
         if @outfile_ext && !DEFINED_FILE_EXT.include?(@outfile_ext)
           raise "Undefined output file extension. #{@outfile_ext}"
         end
+        true
       end
 
+      # Check the format of input file is OpenAPI v3 specificaion or not.
+      # @return [Boolean]
       def v3?
         @data['openapi'] =~ /^3/
       end
 
+      # Check the format of input file is OpenAPI v2 specificaion or not.
+      # @return [Boolean]
       def v2?
         @data['swagger'] =~ /^2/
       end
 
+      # Judge and generate OpenAPI specification object.
+      # @return [OpenAPI::V3::Spec|OpenAPI::V2::Spec] mapped spec data object
       def resolve
         @spec = OasContrib::OpenAPI::V2::Spec.new(@data) if v2?
         @spec = OasContrib::OpenAPI::V3::Spec.new(@data) if v3?
@@ -38,19 +55,31 @@ module OasContrib
         @spec.mapping
       end
 
+      # Load and parse the input file.
+      # @param [String] path input file path
+      # @return [Hash] parsed input data hash
       def input(path)
         @data = _input(path)
       end
 
+      # Output a new file with mapped spec data hash.
+      # @param [Hash] hash mapped spec data hash
+      # @param [String] path output file path
+      # @return [IO]
       def output(hash, path)
         File.open(path, 'w') { |f| _output(hash, f) }
       end
 
+      # Load and parse the files in target directory recursive.
+      # @param [String] dir input directory path
+      # @return [Hash] parsed input data hash
       def input_dir(dir)
         path = dir + '/**/*' + @infile_ext
         Dir.glob(path).sort.each_with_object({}, &input_lambda)
       end
 
+      # Load and parse the file proc.
+      # @return [Proc]
       def input_lambda
         lambda do |file, result|
           hash = _input(file)
@@ -61,6 +90,9 @@ module OasContrib
 
       private
 
+      # Load and prase the file depending on the file extension.
+      # @param [String] path input file path
+      # @return [Hash] parsed input data hash
       def _input(path)
         puts "Load: #{path}"
         case @infile_ext
@@ -70,6 +102,10 @@ module OasContrib
         end
       end
 
+      # Write the spec data hash depending on the file extension.
+      # @param [Hash] hash mapped spec data hash
+      # @param [String] file output file path
+      # @return [IO]
       def _output(hash, file)
         puts "Dist: #{file.path}"
         case @outfile_ext
