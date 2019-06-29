@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = OasContrib::VERSION
   spec.authors       = ['Michinao Shimizu']
   spec.email         = ['shimizu.michinao@gmail.com']
-  spec.summary       = 'Libraries and Commands for Open API (2.0, 3.0) Specification.'
-  spec.description   = 'Libraries and Commands for Open API (2.0, 3.0) Specification.Divide OAS file. Merge OAS divided files. Preview OAS file with SwaggerUI Docker Container.
+  spec.summary       = 'Libraries and Commands for Open API (2.X, 3.X) Specification.'
+  spec.description   = 'Divide OAS file (2.X, 3.X). Merge divided files to a OAS file. Preview OAS file with SwaggerUI Docker Container.'
   spec.homepage      = 'https://github.com/MichinaoShimizu/oas_contrib'
   spec.license       = 'MIT'
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
