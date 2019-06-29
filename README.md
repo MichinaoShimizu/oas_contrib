@@ -4,6 +4,10 @@
 
 Libraries and Commands for Open API (2.0, 3.0) Specification.
 
+* Divide OAS file.
+* Merge OAS divided files.
+* Preview OAS file with SaggerUI.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -45,21 +49,8 @@ Options:
 Divide the spec_file into path units and schema units.
 ```
 
-### merge command
-#### I/F
-```bash
-$ oas_contrib help merge
-Usage:
-  oas_contrib merge <input_dir> <spec_file> (<options>)
-
-Options:
-  [--in-ext=IN_EXT]  # input file ext (.yml or .json)
-                     # Default: .yml
-
-Merge multiple divided files into an spec_file.
-```
-
 #### example
+
 ##### input
 [v3.yml](/example/v3.yml)
 
@@ -98,6 +89,19 @@ sample/
     └── 002_pets_{petId}.yml
 ```
 [output sample dir](/example/dist/v3)
+
+### merge command
+```bash
+$ oas_contrib help merge
+Usage:
+  oas_contrib merge <input_dir> <spec_file> (<options>)
+
+Options:
+  [--in-ext=IN_EXT]  # input file ext (.yml or .json)
+                     # Default: .yml
+
+Merge multiple divided files into an spec_file.
+```
 
 ### preview command
 ```bash
