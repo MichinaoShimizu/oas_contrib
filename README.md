@@ -46,6 +46,7 @@ Divide the spec_file into path units and schema units.
 ```
 
 ### merge command
+#### I/F
 ```bash
 $ oas_contrib help merge
 Usage:
@@ -57,6 +58,46 @@ Options:
 
 Merge multiple divided files into an spec_file.
 ```
+
+#### example
+##### input
+[v3.yml](/example/v3.yml)
+
+##### execution
+```
+$ oas_contrib divide v3.yml sample
+Load: v3.yml
+Dist: sample/meta
+Dist: sample/meta/001_openapi.yml
+Dist: sample/meta/002_info.yml
+Dist: sample/meta/003_servers.yml
+Dist: sample/path
+Dist: sample/path/001_pets.yml
+Dist: sample/path/002_pets_{petId}.yml
+Dist: sample/model
+Dist: sample/model/001_Pet.yml
+Dist: sample/model/002_Error.yml
+Dist: sample/model/003_Pets.yml
+complete!
+```
+
+##### output
+```
+$ tree sample/
+sample/
+├── meta
+│   ├── 001_openapi.yml
+│   ├── 002_info.yml
+│   └── 003_servers.yml
+├── model
+│   ├── 001_Pet.yml
+│   ├── 002_Error.yml
+│   └── 003_Pets.yml
+└── path
+    ├── 001_pets.yml
+    └── 002_pets_{petId}.yml
+```
+[output sample dir](/example/dist/v3)
 
 ### preview command
 ```bash
