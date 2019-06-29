@@ -22,40 +22,54 @@ Or install it yourself as:
 
 ## Usage
 
-### Common rule
-
-* The file extension of `<OpenAPI Specification file>` must be `.json` or `.yml`.
-* `<OpenAPI Specification file>` must be has the section of `swagger: 2.0.X` or `openapi: 3.0.X`.
-
-### Divide the OpenAPI Specification file
-
+### sub commands
 ```bash
-oas_contrib divide <OpenAPI Specification file> <output_dir> (<options>...)
+$ oas_contrib
+Commands:
+  oas_contrib divide <spec_file> <output_dir> (<options>)  # Divide the spec_file into path units and schema units.
+  oas_contrib help [COMMAND]                               # Describe available commands or one specific command
+  oas_contrib merge <input_dir> <spec_file> (<options>)    # Merge multiple divided files into an spec_file.
+  oas_contrib preview <spec_file> (<options>)              # Preview the spec_file using Swagger-UI official Docker image.
 ```
 
-| option     | description                  | value type                 | default  |
-|------------|------------------------------|----------------------------|----------|
-|`--out_ext` | the extension of output file | String (`.json` or `.yml`) | `.yml`   |
-
-### Merge from divided files to an OpenAPI Specification file
-
+### divide command
 ```bash
-oas_contrib merge <input_dir> <OpenAPI Specification file> (<options>...)
+$ oas_contrib help divide
+Usage:
+  oas_contrib divide <spec_file> <output_dir> (<options>)
+
+Options:
+  [--out-ext=OUT_EXT]  # output file ext (.yml or .json)
+                       # Default: .yml
+
+Divide the spec_file into path units and schema units.
 ```
 
-| option     | description                  | value type                 | default  |
-|------------|------------------------------|----------------------------|----------|
-|`--in_ext`  | the extension of input  file | String (`.json` or `.yml`) | `.yml`   |
-
-### Preview the OpenAPI Specification file using Swagger-UI docker image
-
+### merge command
 ```bash
-oas_contrib preview <OpenAPI Specification file> (<options>...)
+$ oas_contrib help merge
+Usage:
+  oas_contrib merge <input_dir> <spec_file> (<options>)
+
+Options:
+  [--in-ext=IN_EXT]  # input file ext (.yml or .json)
+                     # Default: .yml
+
+Merge multiple divided files into an spec_file.
 ```
 
-| option     | description             | value type      | default  |
-|------------|-------------------------|-----------------|----------|
-|`--port`    | Swagger UI listen port  | Integer         | `50010`  |
+### preview command
+```bash
+$ oas_contrib help preview
+Usage:
+  oas_contrib preview <spec_file> (<options>)
+
+Options:
+  [--port=N]  # Swagger UI listen port
+              # Default: 50010
+
+Preview the spec_file using Swagger-UI official Docker image.
+```
 
 ## Contributing
 
