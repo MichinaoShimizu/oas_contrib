@@ -6,7 +6,7 @@ Libraries and Commands for Open API (2.0, 3.0) Specification.
 
 * Divide OAS file.
 * Merge OAS divided files.
-* Preview OAS file with SaggerUI.
+* Preview OAS file with SwaggerUI.
 
 ## Installation
 
