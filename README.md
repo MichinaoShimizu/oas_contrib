@@ -8,6 +8,8 @@ Libraries and Commands for Open API (2.0, 3.0) Specification.
 * Merge OAS divided files.
 * Preview OAS file with SwaggerUI.
 
+![divide](/divide.jpg)
+
 ## Installation
 
 Add this line to your application's Gemfile:
