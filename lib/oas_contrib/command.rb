@@ -9,7 +9,7 @@ module OasContrib
     include Thor::Actions
 
     desc 'divide <spec_file> <output_dir> (<options>)', 'Divide the spec_file into path units and schema units.'
-    option :out_ext, type: :string, default: '.yml', desc: 'output file ext (.yml or .json)'
+    option :out_ext, type: :string, default: '.yml', desc: 'output file ext (.yml or .yaml or .json)'
 
     # Divide the spec file command
     # @param [String] spec_file spec file path
@@ -26,7 +26,7 @@ module OasContrib
     end
 
     desc 'merge <input_dir> <spec_file> (<options>)', 'Merge multiple divided files into an spec_file.'
-    option :in_ext, type: :string, default: '.yml', desc: 'input file ext (.yml or .json)'
+    option :in_ext, type: :string, default: '.yml', desc: 'input file ext (.yml or .yaml or .json)'
 
     # Merge divided files to spec file command
     # @param [String] indir input directory path

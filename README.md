@@ -45,7 +45,7 @@ Usage:
   oas_contrib divide <spec_file> <output_dir> (<options>)
 
 Options:
-  [--out-ext=OUT_EXT]  # output file ext (.yml or .json)
+  [--out-ext=OUT_EXT]  # output file ext (.yml or .yaml or .json)
                        # Default: .yml
 
 Divide the spec_file into path units and schema units.
@@ -99,7 +99,7 @@ Usage:
   oas_contrib merge <input_dir> <spec_file> (<options>)
 
 Options:
-  [--in-ext=IN_EXT]  # input file ext (.yml or .json)
+  [--in-ext=IN_EXT]  # input file ext (.yml or .yaml or .json)
                      # Default: .yml
 
 Merge multiple divided files into an spec_file.

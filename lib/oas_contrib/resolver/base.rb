@@ -19,7 +19,7 @@ module OasContrib
       include OasContrib::Interface::Resolver
 
       # @return [Array] approval file extensions
-      DEFINED_FILE_EXT = ['.json', '.yml'].freeze
+      DEFINED_FILE_EXT = ['.json', '.yml', '.yaml'].freeze
 
       # @return [String] the directory name of meta part files
       DIR_NAME_META = 'meta'.freeze
@@ -107,6 +107,7 @@ module OasContrib
         case @infile_ext
         when DEFINED_FILE_EXT[0] then JSON.parse(File.read(path))
         when DEFINED_FILE_EXT[1] then YAML.load_file(path)
+        when DEFINED_FILE_EXT[2] then YAML.load_file(path)
         else raise ArgumentError, 'Undefined input file type'
         end
       end
@@ -117,9 +118,11 @@ module OasContrib
       # @return [IO]
       def _output(hash, file)
         puts "Dist: #{file.path}"
+        p @outfile_ext
         case @outfile_ext
         when DEFINED_FILE_EXT[0] then JSON.dump(hash, file)
         when DEFINED_FILE_EXT[1] then YAML.dump(hash, file)
+        when DEFINED_FILE_EXT[2] then YAML.dump(hash, file)
         else raise ArgumentError, 'Undefined output file type'
         end
       end

@@ -8,38 +8,45 @@ RSpec.describe 'divide command' do
 
   let(:cmd) { "bundle exec oas_contrib divide #{infile} #{outdir} #{option}" }
 
-  context 'swagger_v2 yaml yaml' do
+  context 'swagger_v2 yml yml' do
     let(:infile) { 'example/v2.yml' }
+    let(:outdir) { '/tmp/rspectestresult' }
+    let(:option) {}
+    it { is_expected.to eq(0) }
+  end
+
+  context 'openapi_v3 yml yml' do
+    let(:infile) { 'example/v3.yml' }
     let(:outdir) { '/tmp/rspectestresult' }
     let(:option) {}
     it { is_expected.to eq(0) }
   end
 
   context 'openapi_v3 yaml yaml' do
-    let(:infile) { 'example/v3.yml' }
+    let(:infile) { 'example/v3.yaml' }
     let(:outdir) { '/tmp/rspectestresult' }
-    let(:option) {}
+    let(:option) { '--out_ext=.yaml'}
     it { is_expected.to eq(0) }
   end
 
-  context 'swagger_v2 yaml json' do
+  context 'swagger_v2 yml json' do
     let(:infile) { 'example/v2.yml' }
     let(:outdir) { '/tmp/rspectestresult' }
     let(:option) { '--out_ext=.json' }
     it { is_expected.to eq(0) }
   end
 
-  context 'openapi_v3 yaml json' do
+  context 'openapi_v3 yml json' do
     let(:infile) { 'example/v3.yml' }
     let(:outdir) { '/tmp/rspectestresult' }
     let(:option) { '--out_ext=.json' }
     it { is_expected.to eq(0) }
   end
 
-  context 'invalid out_type hoge' do
-    let(:infile) { 'example/v3.yml' }
+  context 'openapi_v3 yaml json' do
+    let(:infile) { 'example/v3.yaml' }
     let(:outdir) { '/tmp/rspectestresult' }
-    let(:option) { '--out_ext=hoge' }
-    it { is_expected.to eq(1) }
+    let(:option) { '--out_ext=.json' }
+    it { is_expected.to eq(0) }
   end
 end
